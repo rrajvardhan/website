@@ -29,6 +29,7 @@
         --accent: #e8e8e8;
         --green: #7ec8a4;
         --mono: "JetBrains Mono", monospace;
+        --page-w: 860px;
       }
 
       html {
@@ -39,9 +40,26 @@
         background: var(--bg);
         color: var(--text);
         font-family: var(--mono);
-        font-size: 14px;
-        line-height: 1.7;
+        font-size: 13px;
+        line-height: 1.65;
         min-height: 100vh;
+        cursor: none;
+      }
+
+      /* ── CURSOR ── */
+      #cursor {
+        width: 6px;
+        height: 6px;
+        background: var(--accent);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition:
+          width 0.2s,
+          height 0.2s,
+          background 0.2s;
       }
 
       /* ── SCROLLBAR ── */
@@ -56,373 +74,351 @@
         border-radius: 2px;
       }
 
-      /* ── NAV ── */
-      nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 100;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1.2rem 2.5rem;
-        background: rgba(14, 14, 14, 0.9);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--border);
-      }
-
-      .nav-brand {
-        font-size: 12px;
-        color: var(--text-dim);
-        letter-spacing: 0.05em;
-      }
-
-      .nav-brand span {
-        color: var(--text);
-      }
-
-      .nav-links {
-        display: flex;
-        gap: 2rem;
-        list-style: none;
-      }
-
-      .nav-links a {
-        color: var(--text-dim);
-        text-decoration: none;
-        font-size: 11px;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        transition: color 0.2s;
-      }
-
-      .nav-links a:hover {
-        color: var(--accent);
-      }
-
-      /* ── MAIN WRAPPER ── */
-      main {
-        max-width: 860px;
-        margin: 0 auto;
+      /* ── PAGE WRAPPER ── */
+      .page {
+        max-width: var(--page-w);
+        margin: 60px auto 80px;
         padding: 0 2rem;
       }
 
-      /* ── HERO ── */
-      #hero {
-        padding: 140px 0 100px;
+      /* ── HEADER BLOCK ── */
+      header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: start;
+        gap: 2rem;
+        padding-bottom: 2rem;
         border-bottom: 1px solid var(--border);
+        margin-bottom: 2.5rem;
+        opacity: 0;
+        animation: fadeUp 0.45s 0.05s forwards;
       }
 
-      .hero-tag {
+      .name {
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 800;
+        color: var(--accent);
+        letter-spacing: -0.03em;
+        line-height: 1;
+        margin-bottom: 0.35rem;
+      }
+
+      .title-line {
+        font-size: 11px;
+        color: var(--green);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+      }
+
+      .tagline {
+        font-size: 12.5px;
+        color: var(--text-dim);
+        max-width: 480px;
+        line-height: 1.7;
+      }
+
+      .contact-block {
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        padding-top: 0.2rem;
+      }
+
+      .contact-block a,
+      .contact-block span {
         font-size: 11px;
         color: var(--text-dim);
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        margin-bottom: 1.5rem;
+        text-decoration: none;
+        letter-spacing: 0.04em;
+        transition: color 0.2s;
+        white-space: nowrap;
       }
 
-      .hero-tag::before {
-        color: var(--text-dimmer);
-      }
-
-      h1 {
-        font-size: clamp(2.2rem, 5vw, 3.4rem);
-        font-weight: 700;
+      .contact-block a:hover {
         color: var(--accent);
-        letter-spacing: -0.02em;
-        line-height: 1.1;
-        margin-bottom: 1rem;
       }
 
-      .hero-sub {
-        font-size: 13px;
-        color: var(--green);
-        margin-bottom: 2rem;
-        font-weight: 500;
+      .contact-block .label {
+        font-size: 9px;
+        color: var(--text-dimmer);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-top: 0.6rem;
+      }
+      .contact-block .label:first-child {
+        margin-top: 0;
       }
 
-      .hero-bio {
-        max-width: 640px;
-        color: var(--text);
-        font-size: 13.5px;
-        line-height: 1.85;
+      /* ── TWO-COLUMN LAYOUT ── */
+      .resume-body {
+        display: grid;
+        grid-template-columns: 1fr 260px;
+        gap: 3rem;
+        align-items: start;
       }
 
-      .hero-bio p {
-        margin-bottom: 1rem;
+      /* ── SECTION ── */
+      .section {
+        margin-bottom: 2.6rem;
         opacity: 0;
-        animation: fadeUp 0.5s forwards;
+        animation: fadeUp 0.45s forwards;
       }
 
-      .hero-bio p:nth-child(1) {
-        animation-delay: 0.1s;
+      .section:nth-child(1) {
+        animation-delay: 0.12s;
       }
-      .hero-bio p:nth-child(2) {
+      .section:nth-child(2) {
         animation-delay: 0.2s;
       }
-      .hero-bio p:nth-child(3) {
-        animation-delay: 0.3s;
+      .section:nth-child(3) {
+        animation-delay: 0.28s;
       }
-      .hero-bio p:nth-child(4) {
-        animation-delay: 0.4s;
-      }
-      .hero-bio p:nth-child(5) {
-        animation-delay: 0.5s;
-      }
-      .hero-bio p:nth-child(6) {
-        animation-delay: 0.6s;
-      }
-      .hero-bio p:nth-child(7) {
-        animation-delay: 0.7s;
+      .section:nth-child(4) {
+        animation-delay: 0.36s;
       }
 
-      .hero-bio strong {
-        color: var(--accent);
-        font-weight: 600;
+      .sidebar .section:nth-child(1) {
+        animation-delay: 0.15s;
+      }
+      .sidebar .section:nth-child(2) {
+        animation-delay: 0.23s;
+      }
+      .sidebar .section:nth-child(3) {
+        animation-delay: 0.31s;
       }
 
-      .github-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.4rem;
-        margin-top: 2rem;
-        color: var(--accent);
-        text-decoration: none;
-        font-size: 13px;
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 2px;
-        transition:
-          border-color 0.2s,
-          color 0.2s;
-      }
-
-      .github-link:hover {
-        border-color: var(--accent);
-        color: #fff;
-      }
-      .github-link::after {
-        content: "↗";
-        font-size: 11px;
-      }
-
-      /* ── PROJECTS ── */
-      #projects {
-        padding: 80px 0;
-      }
-
-      .section-header {
-        display: flex;
-        align-items: baseline;
-        gap: 1rem;
-        margin-bottom: 3rem;
-      }
-
-      .section-title {
-        font-size: 11px;
-        letter-spacing: 0.15em;
+      .section-label {
+        font-size: 9px;
+        letter-spacing: 0.2em;
         text-transform: uppercase;
-        color: var(--text-dim);
-      }
-
-      .section-title::before {
-        content: "// ";
         color: var(--text-dimmer);
+        margin-bottom: 1.1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
       }
 
-      .section-line {
+      .section-label::before {
+        content: none;
+      }
+      .section-label::after {
+        content: "";
         flex: 1;
         height: 1px;
         background: var(--border);
       }
 
-      /* ── PROJECT CARD ── */
-      .project-card {
-        border: 1px solid var(--border);
-        background: var(--bg2);
-        margin-bottom: 1px;
-        transition: border-color 0.2s;
+      .header-tagline {
+        font-size: 12px;
+        color: var(--text-dim);
+        margin-top: 0.6rem;
+        line-height: 1.7;
       }
-
-      .project-card:hover {
-        border-color: #3a3a3a;
+      .about-text {
+        font-size: 12.5px;
+        color: var(--text);
+        line-height: 1.85;
+        max-width: 560px;
       }
-
-      .project-header {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) 220px 24px;
-        align-items: center;
-        gap: 1.5rem;
-        padding: 1.2rem 1.5rem;
-        cursor: pointer;
-        user-select: none;
-      }
-
-      .project-header:hover .project-name {
+      .about-text strong {
         color: var(--accent);
+        font-weight: 600;
+      }
+      .about-text p + p {
+        margin-top: 0.7rem;
       }
 
-      .project-meta-left {
+      /* ── PROJECT ENTRY ── */
+      .project-entry {
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .project-entry:last-child {
+        border-bottom: none;
+      }
+
+      .proj-top {
         display: flex;
-        align-items: center;
+        align-items: baseline;
+        justify-content: space-between;
         gap: 1rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .proj-title-group {
+        display: flex;
+        align-items: baseline;
+        gap: 0.7rem;
         min-width: 0;
       }
 
-      .project-num {
-        font-size: 10px;
-        color: var(--text-dimmer);
-        flex-shrink: 0;
-        width: 20px;
-      }
-
-      .project-name {
-        font-size: 13.5px;
-        font-weight: 600;
-        color: var(--text);
-        transition: color 0.2s;
+      .proj-name {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--accent);
         white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
       }
 
-      .project-slug {
+      .proj-slug {
         font-size: 10px;
         color: var(--green);
-        letter-spacing: 0.05em;
         background: rgba(126, 200, 164, 0.08);
-        padding: 2px 7px;
+        padding: 1px 6px;
         border-radius: 2px;
+        letter-spacing: 0.04em;
+        white-space: nowrap;
+      }
+
+      .proj-links-inline {
+        display: flex;
+        gap: 0.8rem;
         flex-shrink: 0;
-        white-space: nowrap;
       }
 
-      .project-tags-inline {
-        display: flex;
-        gap: 0.4rem;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-      }
-
-      .tag {
+      .proj-link-sm {
         font-size: 10px;
-        color: var(--text-dim);
-        padding: 2px 6px;
-        border: 1px solid var(--border);
-        border-radius: 2px;
-        letter-spacing: 0.03em;
-        white-space: nowrap;
-      }
-
-      .project-toggle {
-        font-size: 11px;
         color: var(--text-dimmer);
-        transition: transform 0.25s;
-        text-align: center;
-        justify-self: center;
-      }
-
-      .project-card.open .project-toggle {
-        transform: rotate(45deg);
-      }
-
-      .project-body {
-        display: none;
-        padding: 0 1.5rem 1.5rem 1.5rem;
-        border-top: 1px solid var(--border);
-      }
-
-      .project-card.open .project-body {
-        display: block;
-      }
-
-      .project-desc {
-        color: var(--text);
-        font-size: 13px;
-        line-height: 1.8;
-        margin: 1.2rem 0 1.2rem 0;
-        max-width: 680px;
-      }
-
-      .project-links {
-        display: flex;
-        gap: 1rem;
-      }
-
-      .proj-link {
-        font-size: 11px;
-        color: var(--text-dim);
         text-decoration: none;
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 1px;
         letter-spacing: 0.05em;
+        border-bottom: 1px solid transparent;
+        padding-bottom: 1px;
         transition:
           color 0.2s,
           border-color 0.2s;
       }
-
-      .proj-link:hover {
+      .proj-link-sm:hover {
         color: var(--accent);
         border-color: var(--accent);
+      }
+
+      .proj-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .tag {
+        font-size: 9px;
+        color: var(--text-dim);
+        border: 1px solid var(--border);
+        padding: 1px 5px;
+        border-radius: 2px;
+        letter-spacing: 0.04em;
+        white-space: nowrap;
+      }
+
+      .proj-desc {
+        font-size: 12px;
+        color: var(--text-dim);
+        line-height: 1.75;
+        max-width: 540px;
+      }
+
+      /* ── SIDEBAR ── */
+      .sidebar {
+      }
+
+      /* ── SKILLS LIST ── */
+      .skills-group + .skills-group {
+        margin-top: 1.1rem;
+      }
+
+      .skills-sublabel {
+        font-size: 9px;
+        color: var(--text-dimmer);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 0.4rem;
+      }
+
+      .skills-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+      }
+
+      .pill {
+        font-size: 10px;
+        color: var(--text);
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        padding: 2px 7px;
+        border-radius: 2px;
+        letter-spacing: 0.02em;
+      }
+
+      .pill.primary {
+        color: var(--green);
+        border-color: rgba(126, 200, 164, 0.3);
+        background: rgba(126, 200, 164, 0.06);
+      }
+
+      .pill.purple {
+        color: #b794f4;
+        border-color: rgba(183, 148, 244, 0.3);
+        background: rgba(183, 148, 244, 0.06);
+      }
+
+      .pill.gold {
+        color: #e8c84a;
+        border-color: rgba(232, 200, 74, 0.3);
+        background: rgba(232, 200, 74, 0.06);
+      }
+
+      /* ── EDUCATION ── */
+      .edu-entry {
+        margin-bottom: 1rem;
+      }
+      .edu-degree {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--accent);
+        margin-bottom: 0.15rem;
+      }
+      .edu-school {
+        font-size: 11px;
+        color: var(--text-dim);
+        margin-bottom: 0.1rem;
+      }
+      .edu-detail {
+        font-size: 10px;
+        color: var(--text-dimmer);
+        letter-spacing: 0.04em;
       }
 
       /* ── FOOTER ── */
       footer {
         border-top: 1px solid var(--border);
-        padding: 3rem 0;
+        margin-top: 2.5rem;
+        padding: 2rem 0;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 2rem;
         flex-wrap: wrap;
       }
-
       .footer-left {
         font-size: 11px;
         color: var(--text-dimmer);
       }
-
       .footer-email {
         font-size: 12px;
         color: var(--text-dim);
         text-decoration: none;
         transition: color 0.2s;
       }
-
       .footer-email:hover {
         color: var(--accent);
-      }
-
-      /* ── CURSOR ── */
-      body {
-        cursor: none;
-      }
-      #cursor {
-        width: 6px;
-        height: 6px;
-        background: var(--accent);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 9999;
-        transform: translate(-50%, -50%);
-        transition:
-          transform 0.1s,
-          width 0.2s,
-          height 0.2s;
-      }
-
-      a,
-      button,
-      .project-header {
-        cursor: none;
       }
 
       /* ── ANIMATIONS ── */
       @keyframes fadeUp {
         from {
           opacity: 0;
-          transform: translateY(12px);
+          transform: translateY(10px);
         }
         to {
           opacity: 1;
@@ -430,26 +426,66 @@
         }
       }
 
-      /* ── MOBILE ── */
-      @media (max-width: 600px) {
-        nav {
-          padding: 1rem 1.2rem;
+      /* ── PRINT ── */
+      @media print {
+        body {
+          background: #fff;
+          color: #111;
+          cursor: auto;
         }
-        main {
-          padding: 0 1.2rem;
+        :root {
+          --bg: #fff;
+          --bg2: #f5f5f5;
+          --bg3: #eee;
+          --border: #ccc;
+          --text: #222;
+          --text-dim: #555;
+          --text-dimmer: #888;
+          --accent: #000;
+          --green: #2a7a54;
         }
-        #hero {
-          padding: 110px 0 70px;
-        }
-        .project-header {
-          grid-template-columns: minmax(0, 1fr) 24px;
-        }
-        .project-tags-inline {
+        #cursor,
+        .print-btn {
           display: none;
         }
-        footer {
-          flex-direction: column;
-          gap: 1rem;
+        .page {
+          margin: 0;
+          padding: 1.5cm 1.8cm;
+          max-width: 100%;
+        }
+        .section,
+        header {
+          animation: none;
+          opacity: 1;
+        }
+        .pill {
+          border-color: #bbb;
+        }
+      }
+
+      /* ── MOBILE ── */
+      @media (max-width: 640px) {
+        .resume-body {
+          grid-template-columns: 1fr;
+          gap: 0;
+        }
+        header {
+          grid-template-columns: 1fr;
+        }
+        .contact-block {
+          text-align: left;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 0.6rem 1.2rem;
+        }
+        .contact-block .label {
+          width: 100%;
+          margin-top: 0.3rem;
+        }
+        .sidebar {
+          border-top: 1px solid var(--border);
+          padding-top: 2rem;
+          margin-top: 0.5rem;
         }
         #cursor {
           display: none;
@@ -457,237 +493,303 @@
         body {
           cursor: auto;
         }
+        .print-btn {
+          display: none;
+        }
       }
     </style>
   </head>
   <body>
     <div id="cursor"></div>
 
-    <!-- NAV -->
-    <nav>
-      <div class="nav-brand"><span>rrajvardhan</span></div>
-      <ul class="nav-links">
-        <li><a href="#hero">home</a></li>
-        <li><a href="#projects">projects</a></li>
-        <li><a href="#contact">contact</a></li>
-      </ul>
-    </nav>
-
-    <main>
-      <!-- HERO -->
-      <section id="hero">
-        <p class="hero-tag"></p>
-        <h1>Hello.<br />I'm Rajvardhan.</h1>
-        <p class="hero-sub"></p>
-
-        <div class="hero-bio">
-          <p>
+    <div class="page">
+      <!-- HEADER -->
+      <header>
+        <div>
+          <div class="name">Hello.<br />I'm Rajvardhan.</div>
+          <p class="header-tagline">
             This is the part where I say something clever about myself — but
             let's be honest, I once got outsmarted by a sliding door.
           </p>
-          <p>
-            Primarily a <strong>C++ guy</strong>, but I've picked up enough
-            frontend (<strong>HTML, CSS, JavaScript, React</strong>) to throw
-            together UIs that actually behave. When it comes to databases, I
-            have worked with <strong>MySQL, MongoDB,</strong> and
-            <strong>Firestore</strong>.
-          </p>
-          <p>
-            Comfortable with <strong>Java</strong> and
-            <strong>Python</strong> when needed, but
-            <strong>systems programming</strong> is where I want to be.
-            Specialized in <strong>cybersecurity</strong> during my B.Tech, so I
-            know the theory of breaking systems, even if I enjoy building them
-            more.
-          </p>
-          <p>
-            Curiosity drives me — whether it's untangling weird bugs,
-            experimenting with ideas that might fail spectacularly, or learning
-            something new because it looks fun.
-          </p>
-          <p>
-            I like things that make me think, break, and rebuild in roughly that
-            order, and sometimes all in one night.
-          </p>
-          <p>
-            Naming projects chaotically is a specialty, and staying hydrated
-            remains my most consistent hobby.
-          </p>
         </div>
+        <div class="contact-block">
+          <span class="label">Email</span>
+          <a href="mailto:rajvardhantomar25@gmail.com"
+            >rajvardhantomar25@gmail.com</a
+          >
+          <span class="label">GitHub</span>
+          <a href="https://github.com/rrajvardhan" target="_blank"
+            >github.com/rrajvardhan</a
+          >
+        </div>
+      </header>
 
-        <a
-          class="github-link"
-          href="https://github.com/rrajvardhan"
-          target="_blank"
-          >GitHub</a
-        >
-      </section>
-
-      <!-- PROJECTS -->
-      <section id="projects">
-        <!-- #1 SH-T -->
-        <div class="project-card" onclick="toggle(this)">
-          <div class="project-header">
-            <div class="project-meta-left">
-              <span class="project-num">#1</span>
-              <span class="project-name">2D Game Engine</span>
-              <span class="project-slug">SH-T</span>
+      <!-- TWO-COL BODY -->
+      <div class="resume-body">
+        <!-- MAIN COLUMN -->
+        <div class="main-col">
+          <!-- ABOUT -->
+          <div class="section">
+            <div class="about-text">
+              <p>
+                Primarily a <strong>C++ guy</strong>, but I've picked up enough
+                frontend (<strong>HTML, CSS, JavaScript, React</strong>) to
+                throw together UIs that actually behave. When it comes to
+                databases, I have worked with
+                <strong>MySQL, MongoDB,</strong> and <strong>Firestore</strong>.
+              </p>
+              <p>
+                Comfortable with <strong>Java</strong> and
+                <strong>Python</strong> when needed, but
+                <strong>systems programming</strong> is where I want to be.
+                Specialized in <strong>cybersecurity</strong> during my B.Tech,
+                so I know the theory of breaking systems, even if I enjoy
+                building them more.
+              </p>
+              <p>
+                Curiosity drives me — whether it's untangling weird bugs,
+                experimenting with ideas that might fail spectacularly, or
+                learning something new because it looks fun.
+              </p>
+              <p>
+                I like things that make me think, break, and rebuild in roughly
+                that order, and sometimes all in one night.
+              </p>
+              <p>
+                Naming projects chaotically is a specialty, and staying hydrated
+                remains my most consistent hobby.
+              </p>
             </div>
-            <div class="project-tags-inline">
-              <span class="tag">C++</span><span class="tag">ECS</span>
-              <span class="tag">ImGui</span>
-            </div>
-            <span class="project-toggle">+</span>
           </div>
-          <div class="project-body">
-            <p class="project-desc">
-              Built my own engine instead of using Unity — painful, but now I
-              know how engines work (and why games crash). Modular C++ core with
-              ECS, ImGui tools, Lua scripting, and JSON-based scene/entity
-              serialization. Handles input, audio, rendering, collisions, and
-              physics systems.
-            </p>
-            <div class="project-links">
-              <a
-                class="proj-link"
-                href="https://github.com/rrajvardhan/SH-T"
-                target="_blank"
-                >GitHub ↗</a
-              >
+
+          <!-- PROJECTS -->
+          <div class="section">
+            <div class="section-label">Projects</div>
+
+            <!-- SH-T -->
+            <div class="project-entry">
+              <div class="proj-top">
+                <div class="proj-title-group">
+                  <span class="proj-name">2D Game Engine</span>
+                  <span class="proj-slug">SH-T</span>
+                </div>
+                <div class="proj-links-inline">
+                  <a
+                    class="proj-link-sm"
+                    href="https://github.com/rrajvardhan/SH-T"
+                    target="_blank"
+                    >GitHub ↗</a
+                  >
+                </div>
+              </div>
+              <div class="proj-tags">
+                <span class="tag">C++</span>
+                <span class="tag">ECS</span>
+                <span class="tag">ImGui</span>
+                <span class="tag">Lua</span>
+                <span class="tag">JSON</span>
+              </div>
+              <p class="proj-desc">
+                Built my own engine instead of using Unity — painful, but now I
+                know how engines work (and why games crash). Modular C++ core
+                with ECS, ImGui tools, Lua scripting, and JSON-based
+                scene/entity serialization. Handles input, audio, rendering,
+                collisions, and physics systems.
+              </p>
+            </div>
+
+            <!-- Tafel -->
+            <div class="project-entry">
+              <div class="proj-top">
+                <div class="proj-title-group">
+                  <span class="proj-name">Desktop Whiteboard</span>
+                  <span class="proj-slug">Tafel</span>
+                </div>
+                <div class="proj-links-inline">
+                  <a
+                    class="proj-link-sm"
+                    href="https://github.com/rrajvardhan/tafel"
+                    target="_blank"
+                    >GitHub ↗</a
+                  >
+                </div>
+              </div>
+              <div class="proj-tags">
+                <span class="tag">C++</span>
+                <span class="tag">Qt</span>
+              </div>
+              <p class="proj-desc">
+                Qt Widgets canvas application with freehand drawing, brush
+                controls, erasing, and spline-based drawing tools.
+              </p>
+            </div>
+
+            <!-- Bunkr -->
+            <div class="project-entry">
+              <div class="proj-top">
+                <div class="proj-title-group">
+                  <span class="proj-name">Secure LAN File Sharing</span>
+                  <span class="proj-slug">Bunkr</span>
+                </div>
+                <div class="proj-links-inline">
+                  <a
+                    class="proj-link-sm"
+                    href="https://github.com/rrajvardhan/bunkr"
+                    target="_blank"
+                    >GitHub ↗</a
+                  >
+                </div>
+              </div>
+              <div class="proj-tags">
+                <span class="tag">Go</span>
+                <span class="tag">TUI</span>
+                <span class="tag">Encryption</span>
+              </div>
+              <p class="proj-desc">
+                Why send files through the internet when my devices are sitting
+                right next to each other? Also wanted an excuse to build
+                something in Go. Pure Go TUI tool that encrypts and shares files
+                over your local network — with password protection and zero
+                cloud dependency.
+              </p>
+            </div>
+
+            <!-- Kaiwa -->
+            <div class="project-entry">
+              <div class="proj-top">
+                <div class="proj-title-group">
+                  <span class="proj-name">Real-time Chat App</span>
+                  <span class="proj-slug">Kaiwa</span>
+                </div>
+                <div class="proj-links-inline">
+                  <a
+                    class="proj-link-sm"
+                    href="https://github.com/rrajvardhan/KAIWA"
+                    target="_blank"
+                    >GitHub ↗</a
+                  >
+                  <a
+                    class="proj-link-sm"
+                    href="https://kaiwa.onrender.com"
+                    target="_blank"
+                    >Live ↗</a
+                  >
+                </div>
+              </div>
+              <div class="proj-tags">
+                <span class="tag">React</span>
+                <span class="tag">Node.js</span>
+                <span class="tag">MongoDB</span>
+                <span class="tag">Socket.io</span>
+                <span class="tag">Tailwind</span>
+              </div>
+              <p class="proj-desc">
+                With the usual suspects: React + Tailwind frontend, Node/Express
+                backend, MongoDB for persistence, and Socket.io keeping messages
+                instant. Just signup, login, and message.
+              </p>
+            </div>
+
+            <!-- Neovim -->
+            <div class="project-entry">
+              <div class="proj-top">
+                <div class="proj-title-group">
+                  <span class="proj-name">Neovim Config</span>
+                  <span class="proj-slug">Why Exit?</span>
+                </div>
+                <div class="proj-links-inline">
+                  <a
+                    class="proj-link-sm"
+                    href="https://github.com/rrajvardhan/neovim"
+                    target="_blank"
+                    >GitHub ↗</a
+                  >
+                </div>
+              </div>
+              <div class="proj-tags">
+                <span class="tag">Lua</span>
+                <span class="tag">Neovim</span>
+              </div>
+              <p class="proj-desc">
+                Personal Neovim config — a Frankenstein's monster of
+                hacked-together plugins, Lua snippets, and weird hacks that
+                somehow just work.
+              </p>
+            </div>
+          </div>
+          <!-- /projects section -->
+        </div>
+        <!-- /main-col -->
+
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+          <!-- SKILLS -->
+          <div class="section">
+            <div class="section-label">Skills</div>
+
+            <!-- <div class="skills-group"> -->
+            <!--   <div class="skills-sublabel">Primary</div> -->
+            <!--   <div class="skills-pills"> -->
+            <!--     <span class="pill primary">C++</span> -->
+            <!--     <span class="pill primary">Systems Programming</span> -->
+            <!--     <span class="pill primary">Cybersecurity</span> -->
+            <!--   </div> -->
+            <!-- </div> -->
+
+            <div class="skills-group">
+              <div class="skills-sublabel">Languages</div>
+              <div class="skills-pills">
+                <span class="pill primary">C++</span>
+                <span class="pill">Go</span>
+                <span class="pill">Java</span>
+                <span class="pill">Python</span>
+                <span class="pill">Lua</span>
+                <span class="pill">JavaScript</span>
+              </div>
+            </div>
+
+            <div class="skills-group">
+              <div class="skills-sublabel">Frontend</div>
+              <div class="skills-pills">
+                <span class="pill">React</span>
+                <span class="pill">HTML</span>
+                <span class="pill">CSS</span>
+                <span class="pill">Tailwind</span>
+              </div>
+            </div>
+
+            <div class="skills-group">
+              <div class="skills-sublabel">Databases</div>
+              <div class="skills-pills">
+                <span class="pill">MySQL</span>
+              </div>
+            </div>
+
+            <div class="skills-group">
+              <div class="skills-sublabel">Tools / Libs</div>
+              <div class="skills-pills">
+                <span class="pill purple">Neovim</span>
+                <span class="pill">Socket.io</span>
+                <span class="pill">Node.js</span>
+                <span class="pill">ImGui</span>
+                <span class="pill">Qt</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- EDUCATION -->
+
+          <div class="section">
+            <div class="section-label">Education</div>
+            <div class="edu-entry">
+              <div class="edu-degree">Bachelor of Technology</div>
+              <div class="edu-school">Computer Science &amp; Engineering</div>
             </div>
           </div>
         </div>
-
-        <!-- #2 Tafel -->
-        <div class="project-card" onclick="toggle(this)">
-          <div class="project-header">
-            <div class="project-meta-left">
-              <span class="project-num">#2</span>
-              <span class="project-name">Desktop Whiteboard Application</span>
-              <span class="project-slug">Tafel</span>
-            </div>
-            <div class="project-tags-inline">
-              <span class="tag">C++</span><span class="tag">Qt</span>
-            </div>
-            <span class="project-toggle">+</span>
-          </div>
-          <div class="project-body">
-            <p class="project-desc">
-              Written in C++ using Qt Widgets. Provides a canvas for freehand
-              drawing with basic tools such as brush controls, erasing, and
-              spline-based drawing.
-            </p>
-            <div class="project-links">
-              <a
-                class="proj-link"
-                href="https://github.com/rrajvardhan/tafel"
-                target="_blank"
-                >GitHub ↗</a
-              >
-            </div>
-          </div>
-        </div>
-
-        <!-- #3 Bunkr -->
-        <div class="project-card" onclick="toggle(this)">
-          <div class="project-header">
-            <div class="project-meta-left">
-              <span class="project-num">#3</span>
-              <span class="project-name">Secure LAN File Sharing</span>
-              <span class="project-slug">Bunkr</span>
-            </div>
-            <div class="project-tags-inline">
-              <span class="tag">Go</span><span class="tag">TUI</span>
-              <span class="tag">Encryption</span>
-            </div>
-            <span class="project-toggle">+</span>
-          </div>
-          <div class="project-body">
-            <p class="project-desc">
-              Why send files through the internet when my devices are sitting
-              right next to each other? Also wanted an excuse to build something
-              in Go. Pure Go TUI tool that encrypts and shares files over your
-              local network — with password protection and zero cloud
-              dependency.
-            </p>
-            <div class="project-links">
-              <a
-                class="proj-link"
-                href="https://github.com/rrajvardhan/bunkr"
-                target="_blank"
-                >GitHub ↗</a
-              >
-            </div>
-          </div>
-        </div>
-
-        <!-- #4 Kaiwa -->
-        <div class="project-card" onclick="toggle(this)">
-          <div class="project-header">
-            <div class="project-meta-left">
-              <span class="project-num">#4</span>
-              <span class="project-name">Real-time Chat App</span>
-              <span class="project-slug">Kaiwa</span>
-            </div>
-            <div class="project-tags-inline">
-              <span class="tag">React</span><span class="tag">Node</span>
-              <span class="tag">MongoDB</span>
-            </div>
-            <span class="project-toggle">+</span>
-          </div>
-          <div class="project-body">
-            <p class="project-desc">
-              With the usual suspects: React + Tailwind frontend, Node/Express
-              backend, MongoDB for persistence, and Socket.io keeping messages
-              instant. Just signup, login, and message.
-            </p>
-            <div class="project-links">
-              <a
-                class="proj-link"
-                href="https://github.com/rrajvardhan/KAIWA"
-                target="_blank"
-                >GitHub ↗</a
-              >
-              <a
-                class="proj-link"
-                href="https://kaiwa.onrender.com"
-                target="_blank"
-                >Live ↗</a
-              >
-            </div>
-          </div>
-        </div>
-
-        <!-- #5 Neovim Config -->
-        <div class="project-card" onclick="toggle(this)">
-          <div class="project-header">
-            <div class="project-meta-left">
-              <span class="project-num">#5</span>
-              <span class="project-name">No plans to leave</span>
-              <span class="project-slug">Neovim Config</span>
-            </div>
-            <div class="project-tags-inline">
-              <span class="tag">Lua</span><span class="tag">Neovim</span>
-            </div>
-            <span class="project-toggle">+</span>
-          </div>
-          <div class="project-body">
-            <p class="project-desc">
-              My personal Neovim config — a Frankenstein's monster of
-              hacked-together plugins, random Lua snippets, and weird hacks that
-              somehow just work.
-            </p>
-            <div class="project-links">
-              <a
-                class="proj-link"
-                href="https://github.com/rrajvardhan/neovim"
-                target="_blank"
-                >GitHub ↗</a
-              >
-            </div>
-          </div>
-        </div>
-      </section>
+        <!-- /sidebar -->
+      </div>
+      <!-- /resume-body -->
 
       <!-- FOOTER / CONTACT -->
       <footer id="contact">
@@ -696,16 +798,17 @@
           >rajvardhantomar25@gmail.com</a
         >
       </footer>
-    </main>
+    </div>
+    <!-- /page -->
 
     <script>
-      // Custom cursor
+      // cursor
       const cursor = document.getElementById("cursor")
       document.addEventListener("mousemove", (e) => {
         cursor.style.left = e.clientX + "px"
         cursor.style.top = e.clientY + "px"
       })
-      document.querySelectorAll("a, .project-header").forEach((el) => {
+      document.querySelectorAll("a, button").forEach((el) => {
         el.addEventListener("mouseenter", () => {
           cursor.style.width = "12px"
           cursor.style.height = "12px"
@@ -717,15 +820,6 @@
           cursor.style.background = "var(--accent)"
         })
       })
-
-      // Project accordion
-      function toggle(card) {
-        const isOpen = card.classList.contains("open")
-        document
-          .querySelectorAll(".project-card")
-          .forEach((c) => c.classList.remove("open"))
-        if (!isOpen) card.classList.add("open")
-      }
     </script>
   </body>
 </html>
