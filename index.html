@@ -497,6 +497,57 @@
           display: none;
         }
       }
+
+      .proj-preview {
+        margin-top: 0.75rem;
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        transition:
+          max-height 0.4s ease,
+          opacity 0.35s ease;
+        border-radius: 3px;
+        position: relative;
+        border: 1px solid transparent;
+      }
+      .project-entry:hover .proj-preview {
+        max-height: 340px;
+        opacity: 1;
+        border-color: var(--border);
+      }
+      .proj-preview video,
+      .proj-preview img {
+        width: 100%;
+        display: block;
+        border-radius: 2px;
+      }
+      .proj-preview-placeholder {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          var(--bg2) 0%,
+          var(--bg3) 40%,
+          var(--bg2) 100%
+        );
+        background-size: 200% 100%;
+        animation: shimmer 1.6s infinite;
+        border-radius: 2px;
+        pointer-events: none;
+      }
+
+      .proj-preview-placeholder.hidden {
+        display: none;
+      }
+
+      @keyframes shimmer {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
     </style>
   </head>
   <body>
@@ -596,6 +647,20 @@
                 scene/entity serialization. Handles input, audio, rendering,
                 collisions, and physics systems.
               </p>
+              <div class="proj-preview">
+                <div class="proj-preview-placeholder"></div>
+                <video
+                  src="https://github.com/user-attachments/assets/897cec8d-a5f1-4f9d-b024-591b27a37fa1"
+                  autoplay
+                  loop
+                  muted
+                  playsinline
+                  preload="metadata"
+                  onloadeddata="
+                    this.previousElementSibling.classList.add('hidden')
+                  "
+                ></video>
+              </div>
             </div>
 
             <!-- Tafel -->
@@ -622,6 +687,13 @@
                 Qt Widgets canvas application with freehand drawing, brush
                 controls, erasing, and spline-based drawing tools.
               </p>
+              <div class="proj-preview">
+                <div class="proj-preview-placeholder"></div>
+                <img
+                  src="https://github.com/user-attachments/assets/785fdf45-d684-48d3-a172-5de008f6fa67"
+                  onload="this.previousElementSibling.classList.add('hidden')"
+                />
+              </div>
             </div>
 
             <!-- Bunkr -->
@@ -652,6 +724,20 @@
                 over your local network — with password protection and zero
                 cloud dependency.
               </p>
+              <div class="proj-preview">
+                <div class="proj-preview-placeholder"></div>
+                <video
+                  src="https://github.com/user-attachments/assets/14adc4d5-6239-4af5-9a6e-2dc09b2001f2"
+                  autoplay
+                  loop
+                  muted
+                  playsinline
+                  preload="metadata"
+                  onloadeddata="
+                    this.previousElementSibling.classList.add('hidden')
+                  "
+                ></video>
+              </div>
             </div>
 
             <!-- Kaiwa -->
@@ -664,15 +750,15 @@
                 <div class="proj-links-inline">
                   <a
                     class="proj-link-sm"
-                    href="https://github.com/rrajvardhan/KAIWA"
-                    target="_blank"
-                    >GitHub ↗</a
-                  >
-                  <a
-                    class="proj-link-sm"
                     href="https://kaiwa.onrender.com"
                     target="_blank"
                     >Live ↗</a
+                  >
+                  <a
+                    class="proj-link-sm"
+                    href="https://github.com/rrajvardhan/kaiwa"
+                    target="_blank"
+                    >GitHub ↗</a
                   >
                 </div>
               </div>
@@ -715,6 +801,13 @@
                 hacked-together plugins, Lua snippets, and weird hacks that
                 somehow just work.
               </p>
+              <div class="proj-preview">
+                <div class="proj-preview-placeholder"></div>
+                <img
+                  src="https://github.com/user-attachments/assets/e638bc97-13c6-4066-8b53-f3f9498aae82"
+                  onload="this.previousElementSibling.classList.add('hidden')"
+                />
+              </div>
             </div>
           </div>
           <!-- /projects section -->
@@ -784,6 +877,7 @@
             <div class="edu-entry">
               <div class="edu-degree">Bachelor of Technology</div>
               <div class="edu-school">Computer Science &amp; Engineering</div>
+              <div class="edu-detail">2022 — 2026</div>
             </div>
           </div>
         </div>
