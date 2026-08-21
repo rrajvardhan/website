@@ -501,19 +501,11 @@
       .proj-preview {
         margin-top: 0.75rem;
         overflow: hidden;
-        max-height: 0;
-        opacity: 0;
-        transition:
-          max-height 0.4s ease,
-          opacity 0.35s ease;
+        max-height: 340px;
+        opacity: 1;
         border-radius: 3px;
         position: relative;
         border: 1px solid transparent;
-      }
-      .project-entry:hover .proj-preview {
-        max-height: 340px;
-        opacity: 1;
-        border-color: var(--border);
       }
       .proj-preview video,
       .proj-preview img {
@@ -534,10 +526,12 @@
         animation: shimmer 1.6s infinite;
         border-radius: 2px;
         pointer-events: none;
+        transition: opacity 0.3s;
       }
 
       .proj-preview-placeholder.hidden {
-        display: none;
+        opacity: 0;
+        visibility: hidden;
       }
 
       @keyframes shimmer {
@@ -657,9 +651,6 @@
                   muted
                   playsinline
                   preload="metadata"
-                  onloadeddata="
-                    this.previousElementSibling.classList.add('hidden')
-                  "
                 ></video>
               </div>
             </div>
@@ -693,7 +684,6 @@
                 <div class="proj-preview-placeholder"></div>
                 <img
                   src="https://github.com/user-attachments/assets/785fdf45-d684-48d3-a172-5de008f6fa67"
-                  onload="this.previousElementSibling.classList.add('hidden')"
                 />
               </div>
             </div>
@@ -737,9 +727,6 @@
                   muted
                   playsinline
                   preload="metadata"
-                  onloadeddata="
-                    this.previousElementSibling.classList.add('hidden')
-                  "
                 ></video>
               </div>
             </div>
@@ -781,9 +768,6 @@
                   muted
                   playsinline
                   preload="metadata"
-                  onloadeddata="
-                    this.previousElementSibling.classList.add('hidden')
-                  "
                 ></video>
               </div>
             </div>
@@ -853,7 +837,6 @@
                 <div class="proj-preview-placeholder"></div>
                 <img
                   src="https://github.com/user-attachments/assets/e638bc97-13c6-4066-8b53-f3f9498aae82"
-                  onload="this.previousElementSibling.classList.add('hidden')"
                 />
               </div>
             </div>
@@ -962,6 +945,22 @@
           cursor.style.background = "var(--accent)"
         })
       })
+
+      document
+        .querySelectorAll(".proj-preview video, .proj-preview img")
+        .forEach((media) => {
+          const placeholder = media.previousElementSibling
+
+          const hidePlaceholder = () => {
+            placeholder.classList.add("hidden")
+          }
+
+          if (media.tagName === "VIDEO") {
+            media.addEventListener("loadeddata", hidePlaceholder)
+          } else {
+            media.addEventListener("load", hidePlaceholder)
+          }
+        })
     </script>
   </body>
 </html>
